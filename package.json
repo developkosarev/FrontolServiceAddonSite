@@ -6,7 +6,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/itchief/gulp-project-bootstrap-4.git"
+    "url": "https://github.com/developkosarev/FrontolServiceAddonSite.git"
   },
   "dependencies": {
     "jquery": "^3.4.1",
