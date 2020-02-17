@@ -3,6 +3,7 @@
 var path = {
     build: {
         html: 'assets/build/',
+        sri: 'assets/build/*.html',
         js: 'assets/build/js/',
         css: 'assets/build/css/',
         img: 'assets/build/img/',
@@ -32,6 +33,24 @@ var config = {
     notify: false
 };
 
+/*
+var versionConfig = {
+    value  : '%MDS%',
+    append : {
+        key: 'v',
+        to : ['css', 'js'],
+    }
+};
+*/
+
+var versionConfig = {
+    value  : '%MDS%',
+    replaces : [
+        '#{VERSION_REPlACE_MAIN_CSS}#',
+        '#{VERSION_REPlACE_MAIN_JS}#',
+    ]
+};
+
 var gulp = require('gulp'),
     webserver = require('browser-sync'),
     plumber = require('gulp-plumber'),
@@ -46,7 +65,9 @@ var gulp = require('gulp'),
     jpegrecompress = require('imagemin-jpeg-recompress'),
     pngquant = require('imagemin-pngquant'),
     rimraf = require('gulp-rimraf'),
-    rename = require('gulp-rename');
+    rename = require('gulp-rename'),
+    sriHash = require('gulp-sri-hash'),
+    version = require('gulp-version-number');
 
 /* tasks */
 
@@ -57,11 +78,19 @@ gulp.task('webserver', function () {
 
 // html
 gulp.task('html:build', function () {
-    return gulp.src(path.src.html)
+    return gulp.src(path.src.html)        
         .pipe(plumber())
         .pipe(rigger())
+        .pipe(version(versionConfig))
         .pipe(gulp.dest(path.build.html))
         .pipe(webserver.reload({ stream: true }));
+});
+
+// sri
+gulp.task('html:sri', function () {
+    return gulp.src(path.build.sri)
+        .pipe(sriHash())
+        .pipe(gulp.dest(path.build.html));        
 });
 
 // style
@@ -127,6 +156,20 @@ gulp.task('cache:clear', function () {
 });
 
 // build
+// gulp.task('build',
+//     gulp.series('clean:build',
+//         gulp.parallel(
+//             'html:build',
+//             'css:build',
+//             'js:build',
+//             'fonts:build',
+//             'image:build'
+//         ),
+//         gulp.series('html:sri')
+//     )
+// );
+
+// build
 gulp.task('build',
     gulp.series('clean:build',
         gulp.parallel(
@@ -135,17 +178,17 @@ gulp.task('build',
             'js:build',
             'fonts:build',
             'image:build'
-        )
+        )        
     )
 );
 
 // watch
-gulp.task('watch', function () {
-    gulp.watch(path.watch.html, gulp.series('html:build'));
+gulp.task('watch', function () {    
     gulp.watch(path.watch.css, gulp.series('css:build'));
     gulp.watch(path.watch.js, gulp.series('js:build'));
     gulp.watch(path.watch.img, gulp.series('image:build'));
     gulp.watch(path.watch.fonts, gulp.series('fonts:build'));
+    gulp.watch(path.watch.html, gulp.series('html:build'));
 });
 
 // default
