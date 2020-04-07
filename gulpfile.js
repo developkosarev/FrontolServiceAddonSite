@@ -7,14 +7,16 @@ var path = {
         js: 'assets/build/js/',
         css: 'assets/build/css/',
         img: 'assets/build/img/',
-        fonts: 'assets/build/fonts/'
+        fonts: 'assets/build/fonts/',
+		txt: 'assets/build/'
     },
     src: {
         html: 'assets/src/*.html',
         js: 'assets/src/js/main.js',
         style: 'assets/src/style/main.scss',
         img: 'assets/src/img/**/*.*',
-        fonts: 'assets/src/fonts/**/*.*'
+        fonts: 'assets/src/fonts/**/*.*',
+		txt: 'assets/src/*.txt'
     },
     watch: {
         html: 'assets/src/**/*.html',
@@ -128,6 +130,12 @@ gulp.task('fonts:build', function () {
         .pipe(gulp.dest(path.build.fonts));
 });
 
+// txt
+gulp.task('txt:build', function () {
+    return gulp.src(path.src.txt)
+        .pipe(gulp.dest(path.build.txt));
+});
+
 // img
 gulp.task('image:build', function () {
     return gulp.src(path.src.img)
@@ -177,6 +185,7 @@ gulp.task('build',
             'css:build',
             'js:build',
             'fonts:build',
+			'txt:build',
             'image:build'
         )        
     )
