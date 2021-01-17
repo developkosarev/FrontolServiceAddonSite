@@ -18,5 +18,8 @@
 //= ../../../node_modules/bootstrap/js/dist/tab.js
 //= ../../../node_modules/bootstrap/js/dist/toast.js
 
+// Lazysizes
+//= ../../../node_modules/lazysizes/lazysizes.js
+
 // Import js
 //= my.js
