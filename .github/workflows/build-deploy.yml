@@ -36,6 +36,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
           node-version: '14'
+          cache: 'npm'
           
     - name: 06. Install dependency
       run : npm install
