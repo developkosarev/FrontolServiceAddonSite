@@ -35,7 +35,7 @@ jobs:
     - name: 05. Install node js
       uses: actions/setup-node@v1
       with:
-          node-version: 14
+          node-version: '14'
           
     - name: 06. Install dependensis
       run : npm ci
