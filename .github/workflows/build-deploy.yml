@@ -29,10 +29,21 @@ jobs:
     - name: 03. List current folder
       run : ls -la
    
-    - name: 04 .Git clone repository
-      uses: actions/checkout@v1       
+    - name: 04. Git clone repository
+      uses: actions/checkout@v2
+    
+    - name: 05. Install node js
+      uses: actions/setup-node@v1
+      with:
+          node-version: 14
+          
+    - name: 06. Install dependensis
+      run : npm ci
       
-    - name: 05. List current folder
+    - name: 07. Build project
+      run : gulp
+      
+    - name: 08. List current folder
       run : ls -la   
         
     - name: 09. Finish build application
