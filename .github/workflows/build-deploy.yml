@@ -1,0 +1,39 @@
+#---------------------------------------------------------------------
+# GitHub Action Deploy
+#---------------------------------------------------------------------
+name: GitHubActions-Deploy
+env:
+  APPLICATION_NAME    : "FrontolServiceSite"
+  DEPLOY_PACKAGE_NAME : "frontol-service-ver-${{ github.sha }}"
+  
+on: 
+  push:
+    branches: 
+      - master
+      
+jobs:
+  build-frontol-service-site:
+    runs-on: ubuntu-latest
+      
+    steps:
+    - name: 01. Start build application
+      run : echo "01. Start build application"
+    
+    - name: 02. Execure few commands
+      run : |
+        echo "Hello Message1"
+        echo "Hello Message2"
+        echo "Appication name: ${{ env.APPLICATION_NAME }}"
+        echo "Deploy package name: ${{ env.DEPLOY_PACKAGE_NAME }}"
+        
+    - name: 03. List current folder
+      run : ls -la
+   
+    - name: 04 .Git clone repository
+      uses: actions/checkout@v1       
+      
+    - name: 05. List current folder
+      run : ls -la   
+        
+    - name: 09. Finish build application
+      run : echo "09. Finish build application"
