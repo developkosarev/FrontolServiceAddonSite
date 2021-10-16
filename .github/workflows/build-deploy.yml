@@ -41,7 +41,7 @@ jobs:
       run : npm install
       
     - name: 07. Build project
-      run : gulp
+      run : gulp build
       
     - name: 08. List current folder
       run : ls -la   
