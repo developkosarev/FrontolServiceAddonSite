@@ -37,8 +37,8 @@ jobs:
       with:
           node-version: '14'
           
-    - name: 06. Install dependensis
-      run : npm ci
+    - name: 06. Install dependency
+      run : npm install
       
     - name: 07. Build project
       run : gulp
