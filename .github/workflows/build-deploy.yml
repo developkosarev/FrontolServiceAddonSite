@@ -53,8 +53,8 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }} 
         known_hosts: ${{ secrets.SSH_HOST }}
             
-    - name: 10. Adding Known Hosts
-      run : ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+#    - name: 10. Adding Known Hosts
+#      run : ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
       
     - name: 11. Deploy with rsync
       run : rsync -avz 'ssh -p ${{ secrets.SSH_PORT }}' --progress ./assets/build/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/www/frontol.chance-ltd.ru/current/
