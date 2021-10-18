@@ -5,6 +5,7 @@ name: GitHubActions-Deploy
 env:
   APPLICATION_NAME    : "FrontolServiceSite"
   DEPLOY_PACKAGE_NAME : "frontol-service-ver-${{ github.sha }}"
+  DEPLOY_FOLDER       : "www/termina.chance-ltd.ru/current/"
   
 on: 
   push:
@@ -60,8 +61,8 @@ jobs:
       run : |
         rsync -avz -e "ssh -p ${{ secrets.SSH_PORT }}" \
             --progress --verbose --relative \
-            --rsync-path="mkdir -p /home/${{ secrets.SSH_USER }}/www/termina.chance-ltd.ru/current/ && rsync" \
-            ./assets/build/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/
+            --rsync-path="mkdir -p /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }} && rsync" \
+            ./assets/build/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}
         
     - name: 19. Finish build application
       run : echo "09. Finish build application"
