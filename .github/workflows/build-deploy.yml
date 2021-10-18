@@ -64,5 +64,5 @@ jobs:
             --rsync-path="mkdir -p /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }} && rsync" \
             ./assets/build/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}
         
-    - name: 19. Finish build application
+    - name: 12. Finish build application
       run : echo "09. Finish build application"
