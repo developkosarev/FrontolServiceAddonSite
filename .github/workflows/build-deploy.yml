@@ -57,7 +57,7 @@ jobs:
       run : ssh-keyscan -p ${{ secrets.SSH_PORT }} -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
       
     - name: 11. Deploy with rsync
-      run : rsync -avz -e 'ssh -p ${{ secrets.SSH_PORT }}' --progress --verbose ./assets/build/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/www/frontol.chance-ltd.ru/current/
+      run : rsync -avz -e 'ssh -p ${{ secrets.SSH_PORT }}' --progress --verbose --relative ./assets/build/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/www/frontol.chance-ltd.ru/current/
         
     - name: 19. Finish build application
       run : echo "09. Finish build application"
