@@ -59,6 +59,7 @@ jobs:
     - name: 11. Deploy with rsync
       run : rsync -avz -e 'ssh -p ${{ secrets.SSH_PORT }}' \            
             --progress --verbose --relative \
+            --rsync-path='mkdir -p /home/${{ secrets.SSH_USER }}/www/termina.chance-ltd.ru/current/ && rsync' \
             ./assets/build/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/
         
     - name: 19. Finish build application
