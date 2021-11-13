@@ -66,8 +66,7 @@ jobs:
         rsync -avz -e "ssh -p ${{ secrets.SSH_PORT }}" \
             --progress --verbose \
             --rsync-path="mkdir -p /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }} && rsync" \
-            ./assets/build/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:\
-            /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}/${{ env.DEPLOY_CURRENT_FOLDER }}
+            ./assets/build/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}/${{ env.DEPLOY_CURRENT_FOLDER }}
         
     - name: 12. Finish build application
       run : echo "09. Finish build application"
