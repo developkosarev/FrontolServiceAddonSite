@@ -5,7 +5,7 @@ name: GitHubActions-Deploy
 env:
   APPLICATION_NAME    : "FrontolServiceSite"
   DEPLOY_PACKAGE_NAME : "frontol-service-ver-${{ github.sha }}"
-  DEPLOY_FOLDER       : "www/frontol"
+  DEPLOY_FOLDER       : "www/frontol/releases"
   
 on: 
   push:
