@@ -69,7 +69,7 @@ jobs:
             ./assets/build/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}/${{ env.DEPLOY_CURRENT_FOLDER }}
         
     - name: 12. Create symbolic link
-      run : ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}
+      run : ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}
         
     - name: 13. Finish build application
       run : echo "09. Finish build application"
