@@ -18,18 +18,18 @@ jobs:
       
     steps:
     - name: 01. Start build application
-      run : echo "01. Start build application"
+      run : |
+        echo "01. Start build application"
+        echo "DEPLOY_CURRENT_FOLDER=$(date '+%Y%m%d%H%M%S')" >> $GITHUB_ENV
+        #echo "OUTPUT=output-$(date "+%Y.%m.%d-%H.%M.%S")" >> $GITHUB_ENV
     
     - name: 02. Execure few commands
-      run : |
-        echo "DEPLOY_CURRENT_FOLDER=$(date '+%Y%m%d%H%M%S')" >> $GITHUB_ENV
+      run : |        
         echo "Hello Message1"
         echo "Hello Message2"
         echo "Appication name: ${{ env.APPLICATION_NAME }}"
         echo "Deploy package name: ${{ env.DEPLOY_PACKAGE_NAME }}"
-        echo "Deploy current folder: ${{ env.DEPLOY_CURRENT_FOLDER }}"
-        
-        #echo "OUTPUT=output-$(date "+%Y.%m.%d-%H.%M.%S")" >> $GITHUB_ENV        
+        echo "Deploy current folder: ${{ env.DEPLOY_CURRENT_FOLDER }}"        
         
     - name: 03. List current folder
       run : ls -la
@@ -66,7 +66,7 @@ jobs:
         rsync -avz -e "ssh -p ${{ secrets.SSH_PORT }}" \
             --progress --verbose \
             --rsync-path="mkdir -p /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }} && rsync" \
-            ./assets/build/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}: \
+            ./assets/build/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:\
             /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}/${{ env.DEPLOY_CURRENT_FOLDER }}
         
     - name: 12. Finish build application
