@@ -68,25 +68,25 @@ jobs:
             --rsync-path="mkdir -p /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }} && rsync" \
             ./assets/build/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}/${{ env.DEPLOY_CURRENT_FOLDER }}
             
-    - name: 12. Create symbolic link
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        port: ${{ secrets.SSH_PORT }}
-        script: |
-          whoami
-          ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}
-        
     #- name: 12. Create symbolic link
-    #  run : |
-    #    pwd
-    #    ls -la
-    #    echo "1.---------"
-    #    ls -la ~/.ssh
-    #    echo "2.---------"
-    #    ssh -vvv -p ${{ secrets.SSH_PORT }} -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
+    #  uses: appleboy/ssh-action@master
+    #  with:
+    #    host: ${{ secrets.SSH_HOST }}
+    #    username: ${{ secrets.SSH_USER }}
+    #    key: ${{ secrets.SSH_PRIVATE_KEY }}
+    #    port: ${{ secrets.SSH_PORT }}
+    #    script: |
+    #      whoami
+    #      ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}
+        
+    - name: 12. Create symbolic link
+      run : |
+        pwd
+        ls -la
+        echo "1.---------"
+        ls -la ~/.ssh
+        echo "2.---------"
+        ssh -vvv -p ${{ secrets.SSH_PORT }} -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
         
     - name: 13. Finish build application
       run : echo "09. Finish build application"
