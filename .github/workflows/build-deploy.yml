@@ -70,6 +70,7 @@ jobs:
         
     - name: 12. Create symbolic link
       run : |
+        pwd
         ls -la ~/.ssh
         ssh -v -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
         
