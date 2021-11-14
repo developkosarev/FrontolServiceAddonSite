@@ -83,10 +83,8 @@ jobs:
       run : |
         pwd
         ls -la
-        echo "1.---------"
-        ls -la ~/.ssh
-        echo "2.---------"
-        ssh -vvv -p ${{ secrets.SSH_PORT }} -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
+        ls -la ~/.ssh        
+        ssh -vvv -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} ls
         #ssh -vvv -p ${{ secrets.SSH_PORT }} -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
         
     - name: 13. Finish build application
