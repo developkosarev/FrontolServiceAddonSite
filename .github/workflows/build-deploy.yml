@@ -61,30 +61,19 @@ jobs:
     - name: 10. Adding Known Hosts
       run : ssh-keyscan -p ${{ secrets.SSH_PORT }} -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
       
-    - name: 11. Deploy with rsync
-      run : |
-        rsync -avz -e "ssh -p ${{ secrets.SSH_PORT }}" \
-            --progress --verbose \
-            --rsync-path="mkdir -p /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }} && rsync" \
-            ./assets/build/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}/${{ env.DEPLOY_CURRENT_FOLDER }}
-            
-    #- name: 12. Create symbolic link
-    #  uses: appleboy/ssh-action@master
-    #  with:
-    #    host: ${{ secrets.SSH_HOST }}
-    #    username: ${{ secrets.SSH_USER }}
-    #    key: ${{ secrets.SSH_PRIVATE_KEY }}
-    #    port: ${{ secrets.SSH_PORT }}
-    #    script: |
-    #      whoami
-    #      ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}
-        
+    #- name: 11. Deploy with rsync
+    #  run : |
+    #    rsync -avz -e "ssh -p ${{ secrets.SSH_PORT }}" \
+    #        --progress --verbose \
+    #        --rsync-path="mkdir -p /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }} && rsync" \
+    #        ./assets/build/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}/${{ env.DEPLOY_CURRENT_FOLDER }}
+                        
     - name: 12. Create symbolic link
       run : |
         pwd
         ls -la
         ls -la ~/.ssh        
-        ssh -vvv -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} ls
+        ssh -vvv -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} whoami
         #ssh -vvv -p ${{ secrets.SSH_PORT }} -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
         
     - name: 13. Finish build application
