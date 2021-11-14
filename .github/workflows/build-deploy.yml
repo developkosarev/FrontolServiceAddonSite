@@ -72,7 +72,7 @@ jobs:
       run : |
         pwd
         ls -la ~/.ssh
-        ssh -v -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
+        #ssh -v -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
         
     - name: 13. Finish build application
       run : echo "09. Finish build application"
