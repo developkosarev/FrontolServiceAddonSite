@@ -67,19 +67,31 @@ jobs:
     #        --progress --verbose \
     #        --rsync-path="mkdir -p /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }} && rsync" \
     #        ./assets/build/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}/${{ env.DEPLOY_CURRENT_FOLDER }}
-                        
-    - name: 12. Create symbolic link test
-      run : |        
-        ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
-        #ssh -vvv -p ${{ secrets.SSH_PORT }} -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
+    #                    
+    #- name: 12. Create symbolic link test
+    #  run : |        
+    #    ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
+    #    #ssh -vvv -p ${{ secrets.SSH_PORT }} -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
     
-    - name: 12.1. Build project
-      run : gulp build
-    
-    - name: 12.2. Create symbolic link 2
-      run : |        
-        ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
-        #ssh -vvv -p ${{ secrets.SSH_PORT }} -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"     
-        
+    - name: 12. Copy file via scp
+      uses: appleboy/scp-action@master
+      env:
+        HOST:     ${{ secrets.SSH_HOST }}
+        USERNAME: ${{ secrets.SSH_USER }}
+        PORT:     ${{ secrets.SSH_PORT }}
+        KEY:      ${{ secrets.SSH_PRIVATE_KEY }}
+      with:
+        source: "./assets/build/"
+        target: "/home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}/${{ env.DEPLOY_CURRENT_FOLDER }}"
+
+    - name: 12.1 Executing remote  command
+      uses: appleboy/ssh-action@master
+      with:
+        HOST:     ${{ secrets.SSH_HOST }}
+        USERNAME: ${{ secrets.SSH_USER }}
+        PORT:     ${{ secrets.SSH_PORT }}
+        KEY:      ${{ secrets.SSH_PRIVATE_KEY }}
+        script: cat /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}/${{ env.DEPLOY_CURRENT_FOLDER }}/README.md
+                
     - name: 13. Finish build application
       run : echo "09. Finish build application"
