@@ -61,13 +61,13 @@ jobs:
     - name: 10. Adding Known Hosts
       run : ssh-keyscan -p ${{ secrets.SSH_PORT }} -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
       
-    #- name: 11. Deploy with rsync
-    #  run : |
-    #    rsync -avz -e "ssh -p ${{ secrets.SSH_PORT }}" \
-    #        --progress --verbose \
-    #        --rsync-path="mkdir -p /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }} && rsync" \
-    #        ./assets/build/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}/${{ env.DEPLOY_CURRENT_FOLDER }}
-    #                    
+    - name: 11. Deploy with rsync
+      run : |
+        rsync -avz -e "ssh -p ${{ secrets.SSH_PORT }}" \
+            --progress --verbose \
+            --rsync-path="mkdir -p /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }} && rsync" \
+            ./assets/build/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}/${{ env.DEPLOY_CURRENT_FOLDER }}
+                        
     #- name: 12. Create symbolic link test
     #  run : |        
     #    ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
