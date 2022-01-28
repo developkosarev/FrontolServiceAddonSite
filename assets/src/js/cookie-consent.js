@@ -25,6 +25,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     if (hasConsented()) {
         console.log('Loading...');
+        updateConsent();
     } else {
         popup.classList.add('popup_active');
     }
@@ -32,18 +33,20 @@ window.addEventListener('DOMContentLoaded', () => {
     btnConfirm.addEventListener('click', () => {
         toggleStorage(true);
         popup.classList.remove('popup_active');
-        console.log('Loading...');
-
-        gtag("consent", "update", {
-        	ad_storage: "denied",
-        	analytics_storage: "denied",
-        	facebook: "denied",
-        	wait_for_update: 2000 // milliseconds
-        });
+        console.log('Loading...');        
+        updateConsent();
     });
 
     //btnCancel.addEventListener('click', () => {
     //    toggleStorage(false);
     //    popup.classList.remove('popup_active');
     //});    
+
+    function updateConsent(){
+        gtag("consent", "update", {
+        	ad_storage: "granted",
+        	analytics_storage: "granted",
+        	facebook: "granted"
+        });
+    }
 });
