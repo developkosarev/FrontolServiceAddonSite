@@ -1,0 +1,16 @@
+.cookie-consent {
+	padding-left: 15px;
+	padding-right: 15px;
+    position: fixed;
+    bottom: -100%;	
+    width: 100%;
+    height: 80px;    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s all;
+}
+
+.popup_active {
+    bottom: 0;
+}
