@@ -72,9 +72,10 @@ jobs:
       run : |        
         ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test01 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
         ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test02 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
-        ssh -vvv -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test03 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
-        #ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test04 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
-        ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test05 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
+        ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test03 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
+        ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test04 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
+        ssh -vvv -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test05 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
+        #ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test05 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"        
         #ssh -vvv -p ${{ secrets.SSH_PORT }} -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
     
     - name: 11.1 Wget 1
