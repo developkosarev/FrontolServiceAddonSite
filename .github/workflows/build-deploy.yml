@@ -61,12 +61,12 @@ jobs:
     - name: 10. Adding Known Hosts
       run : ssh-keyscan -p ${{ secrets.SSH_PORT }} -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
             
-    - name: 11. Deploy with rsync
-      run : |        
-        rsync -avz -e "ssh -p ${{ secrets.SSH_PORT }}" \
-            --progress --verbose \
-            --rsync-path="mkdir -p /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }} && rsync" \
-            ./assets/build/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}/${{ env.DEPLOY_CURRENT_FOLDER }}
+    #- name: 11. Deploy with rsync
+    #  run : |        
+    #    rsync -avz -e "ssh -p ${{ secrets.SSH_PORT }}" \
+    #        --progress --verbose \
+    #        --rsync-path="mkdir -p /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }} && rsync" \
+    #        ./assets/build/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}/${{ env.DEPLOY_CURRENT_FOLDER }}
                         
     - name: 12. Create symbolic link test
       run : |        
@@ -80,16 +80,16 @@ jobs:
     - name: 11.2 Wget 2
       run : wget https://google.com  
     
-    #- name: 12. Copy file via scp
-    #  uses: appleboy/scp-action@master
-    #  env:
-    #    HOST:     ${{ secrets.SSH_HOST }}
-    #    USERNAME: ${{ secrets.SSH_USER }}
-    #    PORT:     ${{ secrets.SSH_PORT }}
-    #    KEY:      ${{ secrets.SSH_PRIVATE_KEY }}
-    #  with:
-    #    source: "./assets/build/"
-    #    target: "/home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}/${{ env.DEPLOY_CURRENT_FOLDER }}"
+    - name: 12. Copy file via scp
+      uses: appleboy/scp-action@master
+      env:
+        HOST:     ${{ secrets.SSH_HOST }}
+        USERNAME: ${{ secrets.SSH_USER }}
+        PORT:     ${{ secrets.SSH_PORT }}
+        KEY:      ${{ secrets.SSH_PRIVATE_KEY }}
+      with:
+        source: "./assets/build/"
+        target: "/home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}/${{ env.DEPLOY_CURRENT_FOLDER }}"
 
     #- name: 12.1 Executing remote  command
     #  uses: appleboy/ssh-action@master
