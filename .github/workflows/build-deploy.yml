@@ -67,6 +67,42 @@ jobs:
     #        --progress --verbose \
     #        --rsync-path="mkdir -p /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }} && rsync" \
     #        ./assets/build/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}/${{ env.DEPLOY_CURRENT_FOLDER }}
+    
+    - name: 11.1 Executing remote  command Test01
+      uses: appleboy/ssh-action@master
+      with:
+        HOST:     ${{ secrets.SSH_HOST }}
+        USERNAME: ${{ secrets.SSH_USER }}
+        PORT:     ${{ secrets.SSH_PORT }}
+        KEY:      ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          echo Test01
+          whoami
+          ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}
+    
+    - name: 11.2 Executing remote  command Test02
+      uses: appleboy/ssh-action@master
+      with:
+        HOST:     ${{ secrets.SSH_HOST }}
+        USERNAME: ${{ secrets.SSH_USER }}
+        PORT:     ${{ secrets.SSH_PORT }}
+        KEY:      ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          echo Test02
+          whoami
+          ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}
+          
+    - name: 11.3 Executing remote  command Test03
+      uses: appleboy/ssh-action@master
+      with:
+        HOST:     ${{ secrets.SSH_HOST }}
+        USERNAME: ${{ secrets.SSH_USER }}
+        PORT:     ${{ secrets.SSH_PORT }}
+        KEY:      ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          echo Test03
+          whoami
+          ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}      
                         
     - name: 12. Create symbolic link test
       run : |        
