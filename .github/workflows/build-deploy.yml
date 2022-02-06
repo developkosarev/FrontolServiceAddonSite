@@ -68,6 +68,15 @@ jobs:
     #        --rsync-path="mkdir -p /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }} && rsync" \
     #        ./assets/build/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}/${{ env.DEPLOY_CURRENT_FOLDER }}
     
+    - name: 11.0 Create symbolic link test
+      run : |        
+        ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test01 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
+        ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test02 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
+        ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test03 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
+        ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test04 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
+        ssh -vvv -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test05 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
+        #ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test05 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"           
+    
     - name: 11.1 Executing remote  command Test01
       uses: appleboy/ssh-action@master
       with:
