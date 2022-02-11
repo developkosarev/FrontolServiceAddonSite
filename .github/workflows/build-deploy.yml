@@ -14,6 +14,7 @@ on:
       
 jobs:
   build-frontol-service-site:
+    name: Build
     runs-on: ubuntu-latest
       
     steps:
@@ -72,56 +73,56 @@ jobs:
       run : |        
         ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test01 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
         ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test02 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
-        ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test03 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
-        ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test04 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
-        ssh -vvv -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test05 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
+        #ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test03 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
+        #ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test04 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
+        #ssh -vvv -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test05 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
         #ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test05 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"           
     
-    - name: 11.1 Executing remote  command Test01
-      uses: appleboy/ssh-action@master
-      with:
-        HOST:     ${{ secrets.SSH_HOST }}
-        USERNAME: ${{ secrets.SSH_USER }}
-        PORT:     ${{ secrets.SSH_PORT }}
-        KEY:      ${{ secrets.SSH_PRIVATE_KEY }}
-        script: |
-          echo Test01
-          whoami
-          ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}
+    #- name: 11.1 Executing remote  command Test01
+    #  uses: appleboy/ssh-action@master
+    #  with:
+    #    HOST:     ${{ secrets.SSH_HOST }}
+    #    USERNAME: ${{ secrets.SSH_USER }}
+    #    PORT:     ${{ secrets.SSH_PORT }}
+    #    KEY:      ${{ secrets.SSH_PRIVATE_KEY }}
+    #    script: |
+    #      echo Test01
+    #      whoami
+    #      ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}
     
-    - name: 11.2 Executing remote  command Test02
-      uses: appleboy/ssh-action@master
-      with:
-        HOST:     ${{ secrets.SSH_HOST }}
-        USERNAME: ${{ secrets.SSH_USER }}
-        PORT:     ${{ secrets.SSH_PORT }}
-        KEY:      ${{ secrets.SSH_PRIVATE_KEY }}
-        script: |
-          echo Test02
-          whoami
-          ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}
+    #- name: 11.2 Executing remote  command Test02
+    #  uses: appleboy/ssh-action@master
+    #  with:
+    #    HOST:     ${{ secrets.SSH_HOST }}
+    #    USERNAME: ${{ secrets.SSH_USER }}
+    #    PORT:     ${{ secrets.SSH_PORT }}
+    #    KEY:      ${{ secrets.SSH_PRIVATE_KEY }}
+    #    script: |
+    #      echo Test02
+    #      whoami
+    #      ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}
           
-    - name: 11.3 Executing remote  command Test03
-      uses: appleboy/ssh-action@master
-      with:
-        HOST:     ${{ secrets.SSH_HOST }}
-        USERNAME: ${{ secrets.SSH_USER }}
-        PORT:     ${{ secrets.SSH_PORT }}
-        KEY:      ${{ secrets.SSH_PRIVATE_KEY }}
-        script: |
-          echo Test03
-          whoami
-          ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}      
+    #- name: 11.3 Executing remote  command Test03
+    #  uses: appleboy/ssh-action@master
+    #  with:
+    #    HOST:     ${{ secrets.SSH_HOST }}
+    #    USERNAME: ${{ secrets.SSH_USER }}
+    #    PORT:     ${{ secrets.SSH_PORT }}
+    #    KEY:      ${{ secrets.SSH_PRIVATE_KEY }}
+    #    script: |
+    #      echo Test03
+    #      whoami
+    #      ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}      
                         
-    - name: 12. Create symbolic link test
-      run : |        
-        ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test01 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
-        ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test02 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
-        ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test03 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
-        ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test04 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
-        ssh -vvv -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test05 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
-        #ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test05 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"        
-        #ssh -vvv -p ${{ secrets.SSH_PORT }} -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
+    #- name: 12. Create symbolic link test
+    #  run : |        
+    #    ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test01 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
+    #    ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test02 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
+    #    ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test03 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
+    #    ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test04 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
+    #    ssh -vvv -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test05 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
+    #    #ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test05 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"        
+    #    #ssh -vvv -p ${{ secrets.SSH_PORT }} -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
     
     - name: 11.1 Wget 1
       run : wget https://google.com
@@ -151,3 +152,29 @@ jobs:
                 
     - name: 13. Finish build application
       run : echo "09. Finish build application"
+      
+
+  deploy-frontol-service-site:
+    name: Deploy
+    needs: build-frontol-service-site
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 01. Start deploy application
+      run : |
+        echo "01. Start deploy application"
+        echo "DEPLOY_CURRENT_FOLDER=$(date '+%Y%m%d%H%M%S')" >> $GITHUB_ENV        
+        
+    - name: 09. Install SSH Key
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.SSH_PRIVATE_KEY }} 
+        known_hosts: ${{ secrets.SSH_HOST }}
+            
+    - name: 10. Adding Known Hosts
+      run : ssh-keyscan -p ${{ secrets.SSH_PORT }} -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+      
+    - name: 11.0 Create symbolic link test
+      run : |        
+        ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test01 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
+        ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test02 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"  
