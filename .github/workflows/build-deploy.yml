@@ -21,15 +21,19 @@ jobs:
     # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idoutputs
     outputs:
       output1: ${{ steps.step1.outputs.test }}
+      output2: ${{ steps.step2.outputs.test }}
       
     steps:
-    - name: 01. Start build application
-      id  : step1
+    - name: 01. Start build application      
       run : |
         echo "01. Start build application"
         echo "DEPLOY_CURRENT_FOLDER=$(date '+%Y%m%d%H%M%S')" >> $GITHUB_ENV
-        #echo "OUTPUT=output-$(date "+%Y.%m.%d-%H.%M.%S")" >> $GITHUB_ENV
-        echo "::set-output name=test::${{ env.DEPLOY_CURRENT_FOLDER }}"
+        #echo "OUTPUT=output-$(date "+%Y.%m.%d-%H.%M.%S")" >> $GITHUB_ENV        
+    
+    - id: step1
+      run: echo "::set-output name=test::${{ env.DEPLOY_CURRENT_FOLDER }}"
+    - id: step2
+      run: echo "::set-output name=test::world"
     
     - name: 02. Execure few commands
       run : |        
@@ -174,6 +178,7 @@ jobs:
         echo "Deploy package name: ${{ env.DEPLOY_PACKAGE_NAME }}"
         echo "Deploy current folder: ${{ env.DEPLOY_CURRENT_FOLDER }}"
         echo "Deploy current folder from job1: ${{ needs.build-frontol.outputs.output1 }}"
+        echo "Deploy: ${{needs.build-frontol.outputs.output1}} ${{needs.build-frontol.outputs.output2}}"
                 
     - name: 09. Install SSH Key
       uses: shimataro/ssh-key-action@v2
