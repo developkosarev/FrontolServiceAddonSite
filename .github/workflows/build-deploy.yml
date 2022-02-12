@@ -29,7 +29,7 @@ jobs:
         echo "01. Start build application"
         echo "DEPLOY_CURRENT_FOLDER=$(date '+%Y%m%d%H%M%S')" >> $GITHUB_ENV
         #echo "OUTPUT=output-$(date "+%Y.%m.%d-%H.%M.%S")" >> $GITHUB_ENV
-        run: echo "::set-output name=test::${{ env.DEPLOY_PACKAGE_NAME }}"
+        echo "::set-output name=test::${{ env.DEPLOY_CURRENT_FOLDER }}"
     
     - name: 02. Execure few commands
       run : |        
