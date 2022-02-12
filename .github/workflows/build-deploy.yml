@@ -6,6 +6,7 @@ env:
   APPLICATION_NAME    : "FrontolServiceSite"
   DEPLOY_PACKAGE_NAME : "frontol-service-ver-${{ github.sha }}"
   DEPLOY_FOLDER       : "www/frontol/releases"
+  CURRENT_SOFTLINK    : "www/frontol/current"
   
 on: 
   push:
@@ -176,5 +177,5 @@ jobs:
       
     - name: 11.0 Create symbolic link test
       run : |        
-        ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test01 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
+        ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "ln -s /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}/${{ env.DEPLOY_CURRENT_FOLDER }} /home/${{ secrets.SSH_USER }}/${{ env.CURRENT_SOFTLINK }}"
         #ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test02 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
