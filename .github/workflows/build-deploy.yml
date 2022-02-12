@@ -14,16 +14,22 @@ on:
       - master
       
 jobs:
-  build-frontol-service-site:
+  build-frontol:
     name: Build
     runs-on: ubuntu-latest
+    
+    # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idoutputs
+    outputs:
+      output1: ${{ steps.step1.outputs.test }}
       
     steps:
     - name: 01. Start build application
+      id  : step1
       run : |
         echo "01. Start build application"
         echo "DEPLOY_CURRENT_FOLDER=$(date '+%Y%m%d%H%M%S')" >> $GITHUB_ENV
         #echo "OUTPUT=output-$(date "+%Y.%m.%d-%H.%M.%S")" >> $GITHUB_ENV
+        run: echo "::set-output name=test::${{ env.DEPLOY_PACKAGE_NAME }}"
     
     - name: 02. Execure few commands
       run : |        
@@ -155,24 +161,19 @@ jobs:
       run : echo "09. Finish build application"
       
 
-  deploy-frontol-service-site:
+  deploy-frontol:
     name: Deploy
-    needs: build-frontol-service-site
+    needs: build-frontol
     runs-on: ubuntu-latest
     
-    steps:
-    #- name: 01. Start deploy application
-    #  run : |
-    #    echo "01. Start deploy application"
-    #    echo "DEPLOY_CURRENT_FOLDER=$(date '+%Y%m%d%H%M%S')" >> $GITHUB_ENV
-        
-    - name: 02. Execure few commands
+    steps:            
+    - name: 01. Execure few commands
       run : |        
-        echo "Hello Message1"
-        echo "Hello Message2"
+        echo "Hello Message1"        
         echo "Appication name: ${{ env.APPLICATION_NAME }}"
         echo "Deploy package name: ${{ env.DEPLOY_PACKAGE_NAME }}"
-        echo "Deploy current folder: ${{ env.DEPLOY_CURRENT_FOLDER }}"        
+        echo "Deploy current folder: ${{ env.DEPLOY_CURRENT_FOLDER }}"
+        echo "Deploy current folder from job1: ${{ needs.build-frontol.outputs.output1 }}"
                 
     - name: 09. Install SSH Key
       uses: shimataro/ssh-key-action@v2
