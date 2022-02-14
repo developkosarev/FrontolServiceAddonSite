@@ -191,5 +191,7 @@ jobs:
       
     - name: 11.0 Create symbolic link test
       run : |        
-        ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "ln -nsf /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}/${{needs.build-frontol.outputs.output1}} /home/${{ secrets.SSH_USER }}/${{ env.CURRENT_SOFTLINK }}"
+        ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+        "echo Test01 \
+        && ln -nsf /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}/${{needs.build-frontol.outputs.output1}} /home/${{ secrets.SSH_USER }}/${{ env.CURRENT_SOFTLINK }}"
         #ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test02 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
