@@ -174,7 +174,7 @@ jobs:
     steps:            
     - name: 01. Execure few commands
       run : |        
-        echo "Deploy application"        
+        echo "Deploy application"
         echo "Appication name: ${{ env.APPLICATION_NAME }}"
         echo "Deploy package name: ${{ env.DEPLOY_PACKAGE_NAME }}"
         echo "Deploy current folder: ${{ env.DEPLOY_CURRENT_FOLDER }}"
@@ -184,16 +184,15 @@ jobs:
     - name: 09. Install SSH Key
       uses: shimataro/ssh-key-action@v2
       with:
-        key: ${{ secrets.SSH_PRIVATE_KEY }} 
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
         known_hosts: ${{ secrets.SSH_HOST }}
             
     - name: 10. Adding Known Hosts
       run : ssh-keyscan -p ${{ secrets.SSH_PORT }} -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
       
     - name: 11.0 Create symbolic link test
-      run : |        
+      run : |
         ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-        "echo Test01 \        
+        "echo Test01 \
         && ln -nsf /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}/${{needs.build-frontol.outputs.output1}} /home/${{ secrets.SSH_USER }}/${{ env.CURRENT_SOFTLINK }} \
         && ln -nsf /home/${{ secrets.SSH_USER }}/${{ env.SHARED_FOLDER }}/FrontolServiceAddon /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}/${{needs.build-frontol.outputs.output1}}/FrontolServiceAddon"
-        #ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Test02 && whoami && ls -l /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
