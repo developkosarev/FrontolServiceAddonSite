@@ -193,6 +193,8 @@ jobs:
     - name: 11.0 Create symbolic link test
       run : |
         ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-        "ln -nsf /home/${{ secrets.SSH_USER }}/${{ env.SHARED_FOLDER }}/FrontolServiceAddon /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}/${{needs.build-frontol.outputs.output1}}/FrontolServiceAddon"
+        "ln -nsf /home/${{ secrets.SSH_USER }}/${{ env.SHARED_FOLDER }}/FrontolServiceAddon /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}/${{needs.build-frontol.outputs.output1}}/FrontolServiceAddon \
+        && ln -nsf /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}/${{needs.build-frontol.outputs.output1}} /home/${{ secrets.SSH_USER }}/${{ env.CURRENT_SOFTLINK }}"
+        
     #    && echo "step 02" \
     #    && ln -nsf /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}/${{needs.build-frontol.outputs.output1}} /home/${{ secrets.SSH_USER }}/${{ env.CURRENT_SOFTLINK }}
