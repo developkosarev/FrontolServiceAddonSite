@@ -197,4 +197,4 @@ jobs:
         && ln -nsf /home/${{ secrets.SSH_USER }}/${{ env.SHARED_FOLDER }}/sitemaps.xml /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}/${{needs.build-frontol.outputs.output1}}/sitemaps.xml \
         && rm -r /home/${{ secrets.SSH_USER }}/${{ env.CURRENT_SOFTLINK }} \
         && ln -nsf /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}/${{needs.build-frontol.outputs.output1}} /home/${{ secrets.SSH_USER }}/${{ env.CURRENT_SOFTLINK }}
-        && ls -1 /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }} | head -n-3"
+        && ls -1 /home/${{ secrets.SSH_USER }}/${{ env.DEPLOY_FOLDER }}"
