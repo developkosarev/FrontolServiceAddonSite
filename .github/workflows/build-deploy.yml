@@ -54,7 +54,7 @@ jobs:
       uses: actions/setup-node@v3
       with:
           node-version: '18.16.0'
-          cache: 'npm'
+          #cache: 'npm'
           
     - name: 06. Install dependency
       run : npm install
