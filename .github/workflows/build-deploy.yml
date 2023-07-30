@@ -57,7 +57,9 @@ jobs:
           #cache: 'npm'
           
     - name: 06. Install dependency
-      run : npm install
+      run : |
+        node -v
+        npm install
       
     - name: 07. Build project
       run : gulp build
