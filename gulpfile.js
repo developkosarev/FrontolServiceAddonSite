@@ -163,20 +163,6 @@ gulp.task('cache:clear', function () {
     cache.clearAll();
 });
 
-// build1
-// gulp.task('build',
-//     gulp.series('clean:build',
-//         gulp.parallel(
-//             'html:build',
-//             'css:build',
-//             'js:build',
-//             'fonts:build',
-//             'image:build'
-//         ),
-//         gulp.series('html:sri')
-//     )
-// );
-
 // build
 gulp.task('build',
     gulp.series('clean:build',
