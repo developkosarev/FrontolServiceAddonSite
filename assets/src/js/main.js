@@ -20,4 +20,4 @@
 
 // Import js
 //= my.js
-//= cookie-consent.js
+////= cookie-consent.js

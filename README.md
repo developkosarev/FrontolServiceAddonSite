@@ -4,4 +4,5 @@
 
 ```bash
 $ npm install --save-dev webpack webpack-cli webpack-dev-server @babel/core @babel/preset-env babel-loader
+$ npm install --save-dev webpack-stream
 ```
