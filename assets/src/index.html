@@ -49,27 +49,27 @@
 		Читаем например первые 10 записей, более 4 копий. Удаляем и записываем повторно
 	</p>
 	<p>
-		<small>
+		<code>
 		SELECT FIRST 10 REMAINID, SUM(IIF(DTYPE = 0, DELTA, 0))AS SUMMA0, SUM(IIF(DTYPE = 1, DELTA, 0)) AS SUMMA1
                            FROM REMAIND RD
                            GROUP BY REMAINID
 						   HAVING COUNT(ID) > 4		
-		</small>
+		</code>
 	</p>
 	<p>
-		<small>
+		<code>
 		DELETE FROM REMAIND WHERE REMAINID = :RemainId
-		</small>
+		</code>
 	</p>
 	<p>
-		<small>
+		<code>
 		INSERT INTO REMAIND(ID, REMAINID, DELTA, CHNG, DTYPE) VALUES (GEN_ID(GREMAIND, 1), :RemainId, :Summa0, -1, 0)
-		</small>
+		</code>
 	</p>
 	<p>
-		<small>
+		<code>
 		INSERT INTO REMAIND(ID, REMAINID, DELTA, CHNG, DTYPE) VALUES (GEN_ID(GREMAIND, 1), :RemainId, :Summa1, -1, 1)
-		</small>
+		</code>
 	</p>	
 	<h2>Реализация</h2>
 	<p>
