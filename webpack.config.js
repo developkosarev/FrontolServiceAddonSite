@@ -1,7 +1,7 @@
 const path = require('path');
 
 let conf = {
-    entry: './assets/src/js/cookie-consent.js',
+    entry: './assets/src/js/index.js',
     output: {
         path: path.resolve(__dirname,  './assets/build/js'),
 		filename: '[name].bundle.js',

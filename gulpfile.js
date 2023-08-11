@@ -13,6 +13,7 @@ var path = {
     src: {
         html: 'assets/src/*.html',
         js: 'assets/src/js/main.js',
+        indexjs: 'assets/src/js/index.js',
         style: 'assets/src/style/main.scss',
         img: 'assets/src/img/**/*.*',
         fonts: 'assets/src/fonts/**/*.*',
@@ -35,6 +36,30 @@ var config = {
     notify: false
 };
 
+let webpackConfig = {    
+    output: {
+		filename: '[name].bundle.js',
+	},
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: [
+                            ['@babel/preset-env', { targets: "defaults" }]
+                        ]
+                    }
+                }
+            }
+        ]
+    },    
+
+    mode: 'production'
+}
+
 /*
 var versionConfig = {
     value  : '%MDS%',
@@ -53,8 +78,10 @@ var versionConfig = {
     ]
 };
 
-var gulp = require('gulp'),
-    webserver = require('browser-sync'),
+const webpack = require('webpack-stream');
+const gulp = require('gulp');
+
+var webserver = require('browser-sync'),
     plumber = require('gulp-plumber'),
     rigger = require('gulp-rigger'),
     sourcemaps = require('gulp-sourcemaps'),    
@@ -124,6 +151,13 @@ gulp.task('js:build', function () {
         .pipe(webserver.reload({ stream: true }));
 });
 
+// js-webpack
+gulp.task('js-webpack:build', function() {
+    return gulp.src(path.src.indexjs)
+        .pipe(webpack(webpackConfig))
+        .pipe(gulp.dest(path.build.js));
+});
+
 // fonts
 gulp.task('fonts:build', function () {
     return gulp.src(path.src.fonts)
@@ -170,6 +204,7 @@ gulp.task('build',
             'html:build',
             'css:build',
             'js:build',
+            'js-webpack:build',
             'fonts:build',
 			'txt:build',
             'image:build'
@@ -181,6 +216,7 @@ gulp.task('build',
 gulp.task('watch', function () {    
     gulp.watch(path.watch.css, gulp.series('css:build'));
     gulp.watch(path.watch.js, gulp.series('js:build'));
+    gulp.watch(path.watch.js, gulp.series('js-webpack:build'));    
     gulp.watch(path.watch.img, gulp.series('image:build'));
     gulp.watch(path.watch.fonts, gulp.series('fonts:build'));
     gulp.watch(path.watch.html, gulp.series('html:build'));
