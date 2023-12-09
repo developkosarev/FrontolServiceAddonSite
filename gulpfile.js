@@ -11,7 +11,7 @@ var path = {
 		txt: 'assets/build/'
     },
     src: {
-        html: 'assets/src/*.html',
+        html: 'assets/src/*.html',        
         js: 'assets/src/js/main.js',
         indexjs: 'assets/src/js/index.js',
         style: 'assets/src/style/main.scss',
@@ -78,6 +78,10 @@ var versionConfig = {
     ]
 };
 
+const purgecssConfig = {
+    content: [path.build.html+'*.html', path.build.js+'*.js']
+};
+
 const webpack = require('webpack-stream');
 const gulp = require('gulp');
 
@@ -96,7 +100,8 @@ var webserver = require('browser-sync'),
     rimraf = require('gulp-rimraf'),
     rename = require('gulp-rename'),
     sriHash = require('gulp-sri-hash'),
-    version = require('gulp-version-number');
+    version = require('gulp-version-number'),
+    purgecss = require('gulp-purgecss');
 
 /* tasks */
 
@@ -107,7 +112,7 @@ gulp.task('webserver', function () {
 
 // html
 gulp.task('html:build', function () {
-    return gulp.src(path.src.html)        
+    return gulp.src(path.src.html)
         .pipe(plumber())
         .pipe(rigger())
         .pipe(version(versionConfig))
@@ -132,10 +137,17 @@ gulp.task('css:build', function () {
         .pipe(gulp.dest(path.build.css))
         .pipe(rename({ suffix: '.min' }))
         .pipe(cleanCSS())
-        .pipe(sourcemaps.write('./'))
+        .pipe(sourcemaps.write('./'))        
         .pipe(gulp.dest(path.build.css))
         .pipe(webserver.reload({ stream: true }));
 });
+
+// clear styles
+gulp.task('css:purgecss', () => {
+    return gulp.src(path.build.css + '*.css')        
+        .pipe(purgecss(purgecssConfig))        
+        .pipe(gulp.dest('assets/build/css-purge'))
+})
 
 // js
 gulp.task('js:build', function () {
