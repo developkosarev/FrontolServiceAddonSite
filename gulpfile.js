@@ -1,13 +1,15 @@
 'use strict';
 
-const path = require('./gulp/path');
-const config = require('./gulp/config');
-const versionConfig = require('./gulp/versionConfig');
-const webpackConfig = require('./gulp/webpackConfig');
-const purgecssConfig = require('./gulp/purgecssConfig');
+const path = require('./gulp/config/path');
+const config = require('./gulp/config/config');
+const versionConfig = require('./gulp/config/versionConfig');
+const webpackConfig = require('./gulp/config/webpackConfig');
 
 const webpack = require('webpack-stream');
 const gulp = require('gulp');
+
+const purgeCss = require('./gulp/tasks/purgeCss');
+const cacheClear = require('./gulp/tasks/cacheClear');
 
 var webserver = require('browser-sync'),
     plumber = require('gulp-plumber'),
@@ -16,16 +18,14 @@ var webserver = require('browser-sync'),
 	sass = require('gulp-sass')(require('sass')),
     autoprefixer = require('gulp-autoprefixer'),
     cleanCSS = require('gulp-clean-css'),
-    uglify = require('gulp-uglify'),
-    cache = require('gulp-cache'),
+    uglify = require('gulp-uglify'),    
     imagemin = require('gulp-imagemin'),
     jpegrecompress = require('imagemin-jpeg-recompress'),
     pngquant = require('imagemin-pngquant'),
     rimraf = require('gulp-rimraf'),
     rename = require('gulp-rename'),
     sriHash = require('gulp-sri-hash'),
-    version = require('gulp-version-number'),
-    purgecss = require('gulp-purgecss');
+    version = require('gulp-version-number');
 
 /* tasks */
 
@@ -65,13 +65,6 @@ gulp.task('css:build', function () {
         .pipe(gulp.dest(path.build.css))
         .pipe(webserver.reload({ stream: true }));
 });
-
-// clear styles
-gulp.task('css:purgecss', () => {
-    return gulp.src(path.build.css + '*.css')        
-        .pipe(purgecss(purgecssConfig))        
-        .pipe(gulp.dest('assets/build/css-purge'))
-})
 
 // js
 gulp.task('js:build', function () {
@@ -128,11 +121,6 @@ gulp.task('clean:build', function () {
         .pipe(rimraf());
 });
 
-// cache clear
-gulp.task('cache:clear', function () {
-    cache.clearAll();
-});
-
 // build
 gulp.task('build',
     gulp.series('clean:build',
@@ -163,3 +151,6 @@ gulp.task('default', gulp.series(
     'build',
     gulp.parallel('webserver','watch')      
 ));
+
+module.exports['css:purgecss'] = purgeCss;
+module.exports['cache:clear'] = cacheClear;
