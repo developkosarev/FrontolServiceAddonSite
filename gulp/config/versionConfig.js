@@ -13,6 +13,7 @@ module.exports = {
     value  : '%MDS%',
     replaces : [
         '#{VERSION_REPlACE_MAIN_CSS}#',
+        '#{VERSION_REPlACE_PURGE_CSS}#',
         '#{VERSION_REPlACE_MAIN_JS}#',
     ]
 };

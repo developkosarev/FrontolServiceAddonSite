@@ -121,9 +121,19 @@ gulp.task('clean:build', function () {
         .pipe(rimraf());
 });
 
+
+gulp.task('css:purgecss', function (cb) {
+    purgeCss();
+    cb();
+});
+
+//module.exports['css:purgecss'] = purgeCss;
+module.exports['cache:clear'] = cacheClear;
+
 // build
 gulp.task('build',
-    gulp.series('clean:build',
+    gulp.series(
+        'clean:build',
         gulp.parallel(
             'html:build',
             'css:build',
@@ -132,7 +142,8 @@ gulp.task('build',
             'fonts:build',
 			'txt:build',
             'image:build'
-        )        
+        ),
+        'css:purgecss'
     )
 );
 
@@ -151,6 +162,3 @@ gulp.task('default', gulp.series(
     'build',
     gulp.parallel('webserver','watch')      
 ));
-
-module.exports['css:purgecss'] = purgeCss;
-module.exports['cache:clear'] = cacheClear;

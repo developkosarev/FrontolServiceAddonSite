@@ -1,12 +1,13 @@
 module.exports = {
     build: {
-        html: 'assets/build/',
-        sri: 'assets/build/*.html',
-        js: 'assets/build/js/',
-        css: 'assets/build/css/',
-        img: 'assets/build/img/',
-        fonts: 'assets/build/fonts/',
-		txt: 'assets/build/'
+        html:     'assets/build/',
+        sri:      'assets/build/*.html',
+        js:       'assets/build/js/',
+        css:      'assets/build/css/',
+        csspurge: 'assets/build/css-purge',
+        img:      'assets/build/img/',
+        fonts:    'assets/build/fonts/',
+		txt:      'assets/build/'
     },
     src: {
         html: 'assets/src/*.html',        

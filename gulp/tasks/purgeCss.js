@@ -6,6 +6,5 @@ const path = require('../config/path');
 module.exports = function () {
     return src(path.build.css + '*.css')        
         .pipe(purgecss(purgecssConfig))        
-        .pipe(dest('assets/build/css-purge'))
-    
+        .pipe(dest(path.build.csspurge))
 }
