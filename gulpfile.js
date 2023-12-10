@@ -1,86 +1,10 @@
 'use strict';
 
-var path = {
-    build: {
-        html: 'assets/build/',
-        sri: 'assets/build/*.html',
-        js: 'assets/build/js/',
-        css: 'assets/build/css/',
-        img: 'assets/build/img/',
-        fonts: 'assets/build/fonts/',
-		txt: 'assets/build/'
-    },
-    src: {
-        html: 'assets/src/*.html',        
-        js: 'assets/src/js/main.js',
-        indexjs: 'assets/src/js/index.js',
-        style: 'assets/src/style/main.scss',
-        img: 'assets/src/img/**/*.*',
-        fonts: 'assets/src/fonts/**/*.*',
-		txt: 'assets/src/*.txt'
-    },
-    watch: {
-        html: 'assets/src/**/*.html',
-        js: 'assets/src/js/**/*.js',
-        css: 'assets/src/style/**/*.scss',
-        img: 'assets/src/img/**/*.*',
-        fonts: 'assets/srs/fonts/**/*.*'
-    },
-    clean: './assets/build/*'
-};
-
-var config = {
-    server: {
-        baseDir: './assets/build'
-    },
-    notify: false
-};
-
-let webpackConfig = {    
-    output: {
-		filename: '[name].bundle.js',
-	},
-    module: {
-        rules: [
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: [
-                            ['@babel/preset-env', { targets: "defaults" }]
-                        ]
-                    }
-                }
-            }
-        ]
-    },    
-
-    mode: 'production'
-}
-
-/*
-var versionConfig = {
-    value  : '%MDS%',
-    append : {
-        key: 'v',
-        to : ['css', 'js'],
-    }
-};
-*/
-
-var versionConfig = {
-    value  : '%MDS%',
-    replaces : [
-        '#{VERSION_REPlACE_MAIN_CSS}#',
-        '#{VERSION_REPlACE_MAIN_JS}#',
-    ]
-};
-
-const purgecssConfig = {
-    content: [path.build.html+'*.html', path.build.js+'*.js']
-};
+const path = require('./gulp/path');
+const config = require('./gulp/config');
+const versionConfig = require('./gulp/versionConfig');
+const webpackConfig = require('./gulp/webpackConfig');
+const purgecssConfig = require('./gulp/purgecssConfig');
 
 const webpack = require('webpack-stream');
 const gulp = require('gulp');
